@@ -122,6 +122,9 @@
                             <i class='diagram__icon diagram__icon--small'>assignment</i> Container Hash - {{ container.hash }}
                         </div>
                         <div class='diagram__info'>
+                                <i class='diagram__icon diagram__icon--small'>image</i> Container Image - {{ container.image }}
+                            </div>
+                        <div class='diagram__info'>
                             <i class='diagram__icon diagram__icon--small'>memory</i> RAM - {{ (container.stats.ramCurrent/1000000).toFixed(2) }} / {{ (container.stats.ramLimit/1000000).toFixed(2) }}mb
                         </div>
                     </div>
