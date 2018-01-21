@@ -12,20 +12,21 @@ interface IContainerService {
 
 export interface ContainerCreateRequest {
     machine: string;
-    type: string;
-    ramLimit: string;
+    image: string;
+    ramLimit: number;
 }
 
 export interface ContainerKillRequest {
+    machine: string;
     hash: string;
 }
 
 export interface Container {
     hash: string;
     name: string;
-    type: string;
+    image: string;
     stats: Stats;
-    ip: string;
+    address: string;
     machine: string;
 }
 
@@ -35,10 +36,12 @@ export class ContainerService implements IContainerService {
     constructor(private _apiService: ApiService) { }
 
     public createContainer(containerCreateRequest: ContainerCreateRequest): Observable<Container> {
-        return this._apiService.create<Container>(environment.api.machine, containerCreateRequest);
+        containerCreateRequest.ramLimit = containerCreateRequest.ramLimit * 1000000;
+
+        return this._apiService.create<Container>(environment.api.container, containerCreateRequest);
     }
 
-    public killContainer(containerKillRequest: ContainerKillRequest): Observable<Container> {
-        return this._apiService.delete<Container>(environment.api.machine, containerKillRequest.hash);
+    public killContainer(hash: string): Observable<Container> {
+        return this._apiService.delete<Container>(environment.api.container, hash);
     }
 }

@@ -11,25 +11,19 @@ interface IMachineService {
     getMachines(): Observable<any>;
 }
 
-enum MachineType {
-    Worker,
-    Daemon
-}
-
 export interface Stats {
-    cpuCurrent: number;
     ramCurrent: number;
-    ramTotal: number;
-    time: string;
+    ramLimit: number;
 }
 
-interface Machine {
+export interface Machine {
     hash: string;
     ip: string;
-    type: MachineType;
+    type: string;
     dockerControlPort: number;
     stats: Stats;
     containers: Container[];
+    status: string;
 }
 
 @Injectable()
